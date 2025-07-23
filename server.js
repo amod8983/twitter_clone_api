@@ -1,2 +1,7 @@
+import app from './app.js';
 import { config } from './src/config/env.js';
-console.log(config)
+
+
+app.listen(config.port, () => {
+    console.log(`App is running on port: ${config.port}`);
+});
