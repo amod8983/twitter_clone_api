@@ -1,9 +1,18 @@
 import express from "express";
 import cors from "cors";
+import sequelize from "./src/config/db.js";
 import { errorHandler, notFound, logger } from "./src/middlewares/index.js";
 import userRoutes from "./src/routes/users-route.js";
 
 const app = express();
+
+//init DB
+sequelize.authenticate().then(() => {
+    console.log('DB init success');
+}).catch(() => {
+    console.log('DB init failed');
+    process.exit(1);
+})
 
 //Global logger
 app.use(logger);
