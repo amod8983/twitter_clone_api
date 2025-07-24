@@ -17,7 +17,6 @@ export const fail = (res, message, data = {}) =>
   res.status(400).json({ status: "fail", message, data });
 
 /**
- *
  * @param {import('express').Response} res
  * @param {string} message
  * @param {number} code

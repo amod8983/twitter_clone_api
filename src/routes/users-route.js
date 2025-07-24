@@ -8,17 +8,24 @@ import {
   remove,
 } from "../controllers/user-controller.js";
 
+import { validateRequest } from "../middlewares/validate-request.js";
+import {
+  createUserSchema,
+  updateUserSchema,
+  patchUserSchema,
+} from "../validator/user-validator.js";
+
 const router = Router();
 
-router.post("/", create);
+router.post("/", validateRequest(createUserSchema), create);
 
 router.get("/", findAll);
 
 router.get("/:id", findById);
 
-router.put("/:id", update);
+router.put("/:id", validateRequest(updateUserSchema), update);
 
-router.patch("/:id", patchUpdate);
+router.patch("/:id", validateRequest(patchUserSchema), patchUpdate);
 
 router.delete("/:id", remove);
 
