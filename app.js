@@ -1,18 +1,33 @@
 import express from "express";
-import userRoutes from "./src/routes/users.route.js";
+import cors from "cors";
+import { errorHandler, notFound, logger } from "./src/middlewares/index.js";
+import userRoutes from "./src/routes/users-route.js";
 
 const app = express();
 
+//Global logger
+app.use(logger);
+
+app.use(cors());
 app.use(express.json());
 
 app.get("/health", (req, res) => {
-  res.status(200).json({ text: "Server is running fine" });
+  const healthInfo = {
+    status: "ok",
+    uptime: process.uptime().toFixed(0),
+    timestamp: new Date().toISOString(),
+    version: "1.0.0",
+    env: process.env.NODE_ENV || "development",
+  };
+  res.status(200).json(healthInfo);
 });
 
 app.use("/api/user", userRoutes);
 
-app.use("*", (req, res) => {
-  res.status(404).json({ message: "Not found" });
-});
+// For invalid routes
+app.use(notFound);
+
+// For uncaught exception
+app.use(errorHandler);
 
 export default app;
