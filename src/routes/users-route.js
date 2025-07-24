@@ -1,29 +1,25 @@
 import { Router } from "express";
+import {
+  findAll,
+  findById,
+  create,
+  update,
+  patchUpdate,
+  remove,
+} from "../controllers/user-controller.js";
 
 const router = Router();
 
-router.post("/", (req, res) => {
-  res.status(201).json({ response: `Add user called` });
-});
+router.post("/", create);
 
-router.get("/", (req, res) => {
-  res.status(200).json({ response: `Get all users called` });
-});
+router.get("/", findAll);
 
-router.get("/:id", (req, res) => {
-  res.status(200).json({ response: `Get one user called for ${req.params.id}` });
-});
+router.get("/:id", findById);
 
-router.put("/:id", (req, res) => {
-  res.status(200).json({ response: `Update user called for ${req.params.id}` });
-});
+router.put("/:id", update);
 
-router.patch("/:id", (req, res) => {
-  res.status(200).json({ response: `Update user called for ${req.params.id}` });
-});
+router.patch("/:id", patchUpdate);
 
-router.delete("/:id", (req, res) => {
-  res.status(200).json({ response: `Delete user called for ${req.params.id}` });
-});
+router.delete("/:id", remove);
 
 export default router;

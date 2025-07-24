@@ -17,7 +17,7 @@ const app = express();
     await sequelize.authenticate();
     console.log("DB init success");
 
-    await sequelize.sync({ alter: true });
+    await sequelize.sync({ alter: false });
     console.log("DB sync done");
   } catch (e) {
     console.log("DB init failed");
