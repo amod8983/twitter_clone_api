@@ -2,17 +2,28 @@ import express from "express";
 import cors from "cors";
 import sequelize from "./src/config/db.js";
 import { errorHandler, notFound, logger } from "./src/middlewares/index.js";
+
+//models
+import User from "./src/models/user-model.js";
+
+//routes
 import userRoutes from "./src/routes/users-route.js";
 
 const app = express();
 
 //init DB
-sequelize.authenticate().then(() => {
-    console.log('DB init success');
-}).catch(() => {
-    console.log('DB init failed');
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("DB init success");
+
+    await sequelize.sync({ alter: true });
+    console.log("DB sync done");
+  } catch (e) {
+    console.log("DB init failed");
     process.exit(1);
-})
+  }
+})();
 
 //Global logger
 app.use(logger);
