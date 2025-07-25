@@ -1,3 +1,6 @@
+import { STATUS } from '../constants/index.js';
+
+
 /**
  * @param {import('express').Request} req
  * @param {import('express').Response} res
@@ -5,8 +8,8 @@
  */
 const notFound = (req, res, next) => {
   const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
-  res.status(404).json({
-    status: 404,
+  res.status(STATUS.NOT_FOUND).json({
+    status: STATUS.NOT_FOUND,
     success: false,
     message: "Route not found",
     method: req.method,

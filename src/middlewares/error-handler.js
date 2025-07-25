@@ -1,3 +1,7 @@
+import { STATUS } from '../constants/index.js';
+import { config } from '../config/env.js';
+
+
 /**
  * @description Handle global uncaught error
  * @param {Error} err
@@ -7,11 +11,11 @@
  */
 const errorHandler = (err, req, res, next) => {
   console.log(`[Error]: ${err.message}`);
-  res.status(err.status || 500).json({
-    status: err.status || 500,
+  res.status(err.status || STATUS.SERVER_ERROR).json({
+    status: err.status || STATUS.SERVER_ERROR,
     success: false,
     message: err.message || "Internal server error",
-    stack: process.env.NODE_ENV == "development" ? err.stack : undefined,
+    stack: config.nodeEnv == "development" ? err.stack : undefined,
   });
 };
 

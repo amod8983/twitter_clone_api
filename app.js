@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import sequelize from "./src/config/db.js";
+import { config } from "./src/config/env.js";
 import { errorHandler, notFound, logger } from "./src/middlewares/index.js";
 
 //models
@@ -37,7 +38,7 @@ app.get("/health", (req, res) => {
     uptime: process.uptime().toFixed(0),
     timestamp: new Date().toISOString(),
     version: "1.0.0",
-    env: process.env.NODE_ENV || "development",
+    env: config.nodeEnv || "development",
   };
   res.status(200).json(healthInfo);
 });

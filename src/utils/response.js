@@ -1,3 +1,5 @@
+import { STATUS } from '../constants/index.js';
+
 /**
  * @param {import('express').Response} res
  * @param {string} message
@@ -5,7 +7,7 @@
  * @returns
  */
 export const success = (res, message, data = {}) =>
-  res.status(200).json({ status: "success", message, data });
+  res.status(STATUS.OK).json({ status: "success", message, data });
 
 /**
  * @param {import('express').Response} res
@@ -14,7 +16,7 @@ export const success = (res, message, data = {}) =>
  * @returns
  */
 export const fail = (res, message, data = {}) =>
-  res.status(400).json({ status: "fail", message, data });
+  res.status(STATUS.BAD_REQUEST).json({ status: "fail", message, data });
 
 /**
  * @param {import('express').Response} res
@@ -22,5 +24,5 @@ export const fail = (res, message, data = {}) =>
  * @param {number} code
  * @returns
  */
-export const error = (res, message = 'Internal Server Error', code = 500) =>
+export const error = (res, message = 'Internal Server Error', code = STATUS.SERVER_ERROR) =>
   res.status(code).json({ status: "error", message, data: null });
