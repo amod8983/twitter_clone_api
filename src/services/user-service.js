@@ -1,4 +1,5 @@
 import User from "../models/user-model.js";
+import { hashPassword } from "../utils/crypto-util.js";
 
 /**
  * @description Get all users
@@ -23,8 +24,11 @@ export const getUserById = (id) => {
  * @param {Object} data - User data
  * @returns {Promise<Object>} Created user instance
  */
-export const createUser = (data) => {
-  return User.create(data);
+export const createUser = async (data) => {
+  const password = data.password;
+  const hashedPassword = await hashPassword(password);
+  const updatedData = {...data, password: hashedPassword}
+  return User.create(updatedData);
 };
 
 /**
