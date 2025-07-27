@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/amod8983/twitter_clone_api.git"
   },
-  "license": "ISC",
+  "license": "MIT",
   "author": "Amod kumar",
   "type": "module",
   "main": "server.js",
