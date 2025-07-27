@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import sequelize from "./src/config/db.js";
+import redisClient from "./src/config/redis-client.js";
 import { config } from "./src/config/env.js";
 import { errorHandler, notFound, logger } from "./src/middlewares/index.js";
 
@@ -11,6 +12,11 @@ import User from "./src/models/user-model.js";
 import userRoutes from "./src/routes/users-route.js";
 
 const app = express();
+
+process.on("SIGINT", async () => {
+  await redisClient.quit();
+  process.exit(0);
+});
 
 //init DB
 (async () => {

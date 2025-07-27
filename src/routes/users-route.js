@@ -9,6 +9,7 @@ import {
 } from "../controllers/user-controller.js";
 
 import { validateRequest } from "../middlewares/validate-request.js";
+import { redisCache } from "../middlewares/redis-cache.js";
 import {
   createUserSchema,
   updateUserSchema,
@@ -21,7 +22,7 @@ router.post("/", validateRequest(createUserSchema), create);
 
 router.get("/", findAll);
 
-router.get("/:id", findById);
+router.get("/:id", redisCache, findById);
 
 router.put("/:id", validateRequest(updateUserSchema), update);
 
