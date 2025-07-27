@@ -27,3 +27,5 @@ export const redisCache = async (req, res, next) => {
     next();
   }
 };
+
+export default redisCache;

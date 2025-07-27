@@ -27,3 +27,5 @@ export const authValidator = (req, res, next) => {
       .json({ message: "Unauthorized: Invalid token" });
   }
 };
+
+export default authValidator;

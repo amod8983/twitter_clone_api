@@ -1,5 +1,5 @@
 import * as jwt from "jsonwebtoken";
-import { config } from "../config/env";
+import { config } from "../config/env.js";
 
 /**
  * Generate the token from provided payload

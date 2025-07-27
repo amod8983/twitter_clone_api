@@ -3,7 +3,12 @@ import cors from "cors";
 import sequelize from "./src/config/db.js";
 import redisClient from "./src/config/redis-client.js";
 import { config } from "./src/config/env.js";
-import { errorHandler, notFound, logger } from "./src/middlewares/index.js";
+import {
+  errorHandler,
+  notFound,
+  logger,
+  rateLimiter,
+} from "./src/middlewares/index.js";
 
 //models
 import User from "./src/models/user-model.js";
@@ -38,7 +43,7 @@ app.use(logger);
 app.use(cors());
 app.use(express.json());
 
-app.get("/health", (req, res) => {
+app.get("/health", rateLimiter, (req, res) => {
   const healthInfo = {
     status: "ok",
     uptime: process.uptime().toFixed(0),
